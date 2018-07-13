@@ -4,5 +4,11 @@
     android:layout_height="match_parent">
 
     <!--aqui va un fragment de orden OrderFragment-->
+    <FrameLayout
+        android:id="@+id/table_order_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

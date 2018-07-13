@@ -1,5 +1,6 @@
 package co.com.geo.waiter.activity
 
+import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -53,10 +54,12 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnTableSelectedListen
         if (is400Land) {
             val tableOrderFragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment) as TableOrderPagerFragment
             tableOrderFragment.moveToTableOrder(position!!)
+        } else {
+            startActivity(OrderTableActivity.intent(this, position!!))
         }
     }
 
-    override fun onNewPlateAdded(plate: Plate) {
+    override fun onButtonAddPlatePressed(tableIndex: Int) {
         //TODO: Acá se le informa al fragment con los platos pedidos que debe agregar un nuevo plato
     }
 

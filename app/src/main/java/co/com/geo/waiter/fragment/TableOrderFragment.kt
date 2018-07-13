@@ -61,12 +61,18 @@ class TableOrderFragment : Fragment() {
 
         table = Tables[tableIndex!!]
         updateView(table)
-
+        initButtonInteraction()
         if (fragmentManager?.findFragmentById(R.id.order_plates_list_fragment) == null) {
             val platesFragment = PlatesFragment.newInstance(tableIndex!!)
             fragmentManager?.beginTransaction()!!
                     .add(R.id.order_plates_list_fragment, platesFragment)
                     .commit()
+        }
+    }
+
+    fun initButtonInteraction() {
+        add_button.setOnClickListener {
+            listener?.onButtonAddPlatePressed(tableIndex!!)
         }
     }
 
@@ -116,6 +122,7 @@ class TableOrderFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun onNewPlateAdded(Plate: Plate)
+        fun onButtonAddPlatePressed(tableIndex: Int)
+
     }
 }

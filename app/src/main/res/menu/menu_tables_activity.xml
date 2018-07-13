@@ -1,4 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/next_table" android:title="Siguiente table"/>
-    <item android:id="@+id/previous_table" android:title="Anterior table"/>
+    <item android:id="@+id/next_table" android:title="Siguiente activity"/>
+    <item android:id="@+id/previous_table" android:title="Anterior activity"/>
 </menu>
