@@ -1,7 +1,9 @@
 package co.com.geo.waiter.model
 
 
-class Table(var number: Int, var roomName: String) {
+data class Table(var number: Int, var roomName: String) {
+
+    var tableOrder: TableOrder? = null
 
     override fun toString(): String {
          super.toString()

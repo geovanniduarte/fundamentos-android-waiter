@@ -1,5 +1,9 @@
 package co.com.geo.waiter.model
 
+enum class waiterName {
+    PEPITO,JULANITO,SULTANITO
+}
+
 object Tables {
     private val tables : List<Table> = listOf(
             Table(1, "One"),

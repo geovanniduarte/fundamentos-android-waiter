@@ -1,5 +1,20 @@
 package co.com.geo.waiter.model
 
-class TableOrder(var table: Table) {
-    private val plates : List<Plate> = listOf()
+import java.io.Serializable
+
+class TableOrder(var table: Table, var waiterName: String, var date: Long): Serializable {
+    private val orders : ArrayList<Order> = ArrayList()
+
+
+    fun getPlates() : List<Plate> {
+        val plates = ArrayList<Plate>()
+        for (order:Order in this.orders) {
+            plates.add(order.plate)
+        }
+        return plates
+    }
+
+    fun addOrder(order: Order) {
+        orders.add(order)
+    }
 }

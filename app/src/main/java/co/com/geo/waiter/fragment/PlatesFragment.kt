@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import co.com.geo.waiter.R
 import co.com.geo.waiter.model.Plate
-
-
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_ORDER = "ARG_ORDER"
+import co.com.geo.waiter.model.Table
+import co.com.geo.waiter.model.Tables
 
 
 /**
@@ -26,6 +24,9 @@ private const val ARG_ORDER = "ARG_ORDER"
 class PlatesFragment : Fragment() {
 
     companion object {
+
+        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+        private const val ARG_TABLE_INDEX = "ARG_TABLE_INDEX"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -35,21 +36,22 @@ class PlatesFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(order: TableOrder) =
+        fun newInstance(tableIndex: Int) =
                 PlatesFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_ORDER, order)
+                        putSerializable(ARG_TABLE_INDEX, tableIndex)
                     }
                 }
     }
-
-    private var order: TableOrder? = null
+    private var tableIndex: Int = 0
+    private var table: Table? = null
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            order = it.getSerializable(ARG_ORDER)
+            tableIndex = it.getInt(ARG_TABLE_INDEX)
+            table = Tables[tableIndex]
         }
     }
 
@@ -57,6 +59,11 @@ class PlatesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_plates, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //TODO: si hay TableOrder hay que listar los platos de tableOrder, si no entonces se listan todos los platos.
     }
 
     override fun onAttach(context: Context) {

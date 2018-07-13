@@ -1,7 +1,6 @@
 package co.com.geo.waiter.fragment
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import co.com.geo.waiter.R
-import co.com.geo.waiter.model.Plate
+import co.com.geo.waiter.model.*
+import kotlinx.android.synthetic.main.fragment_table_order.*
+import java.util.*
 
 private const val ARG_TABLE_INDEX = "ARG_TABLE_INDEX"
 
@@ -22,41 +23,51 @@ private const val ARG_TABLE_INDEX = "ARG_TABLE_INDEX"
  * create an instance of this fragment.
  *
  */
-class OrderFragment : Fragment() {
+class TableOrderFragment : Fragment() {
 
     companion object {
-        fun newInstance(tableIndex: Int): OrderFragment {
+        fun newInstance(tableIndex: Int): TableOrderFragment {
             val arguments = Bundle()
             arguments.putInt(ARG_TABLE_INDEX, tableIndex)
-            val fragment = OrderFragment()
+            val fragment = TableOrderFragment()
             fragment.arguments = arguments
             return fragment
         }
     }
 
     private var tableIndex: Int? = null
+    var table : Table? = null
+    set(value) {
+        field = value
+        updateView(value)
+    }
 
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            tableIndex = it.getInt(ARG_TABLE_INDEX)
+            tableIndex = it.getInt(ARG_TABLE_INDEX, 0)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_order, container, false)
+        return inflater.inflate(R.layout.fragment_table_order, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
+        table = Tables[tableIndex!!]
+        updateView(table)
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onNewPlateAdded(uri)
+        if (fragmentManager?.findFragmentById(R.id.order_plates_list_fragment) == null) {
+            val platesFragment = PlatesFragment.newInstance(tableIndex!!)
+            fragmentManager?.beginTransaction()!!
+                    .add(R.id.order_plates_list_fragment, platesFragment)
+                    .commit()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -72,6 +83,26 @@ class OrderFragment : Fragment() {
         super.onDetach()
         listener = null
     }
+
+    override fun getUserVisibleHint(): Boolean {
+        super.getUserVisibleHint()
+        updateView(table)
+        return true
+    }
+
+    fun updateView(table: Table?) {
+        table_number.text = table?.number.toString()
+        table_room.text = table?.roomName
+    }
+
+    fun moveToTable(tableIndex: Int) {
+
+    }
+
+    fun beginOrdering() {
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

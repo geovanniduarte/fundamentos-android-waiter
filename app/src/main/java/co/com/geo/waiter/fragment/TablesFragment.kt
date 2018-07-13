@@ -62,7 +62,7 @@ class TablesFragment : Fragment() {
 
         table_list.setOnItemClickListener { parent, view, position, id ->
             var table = Tables[position]
-            listener?.onTableSelected(table)
+            listener?.onTableSelected(position)
         }
 
         table_list.adapter = adapter
@@ -94,6 +94,6 @@ class TablesFragment : Fragment() {
      * for more information.
      */
     interface OnTableSelectedListener {
-        fun onTableSelected(item: Table?)
+        fun onTableSelected(position: Int?)
     }
 }
