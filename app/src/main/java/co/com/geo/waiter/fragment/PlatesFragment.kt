@@ -43,6 +43,7 @@ class PlatesFragment : Fragment() {
                     }
                 }
     }
+
     private var tableIndex: Int = 0
     private var table: Table? = null
     private var listener: OnFragmentInteractionListener? = null
