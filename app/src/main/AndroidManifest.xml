@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.OrderTableActivity"></activity>
+        <activity android:name=".activity.OrderTableActivity" />
+        <activity android:name=".activity.PlatesActivity"></activity>
     </application>
 
 </manifest>

@@ -45,31 +45,36 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
 
     override fun onButtonAddPlatePressed(tableIndex: Int) {
         val tableOrder = Tables[tableIndex].tableOrder
+        if (tableOrder == null) {
+            val customView = layoutInflater.inflate(R.layout.view_neworder, null)
+            val spinnerWaiter = customView.findViewById<Spinner>(R.id.waiter_spinner)
+            val values = waiterName.values().map { waiterName ->
+                waiterName.name
+            }
+            val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
+            spinnerWaiter.adapter = adapter
 
-        val customView = layoutInflater.inflate(R.layout.view_neworder, null)
-        val spinnerWaiter = customView.findViewById<Spinner>(R.id.waiter_spinner)
-        val values = waiterName.values().map { waiterName ->
-            waiterName.name
+            AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.new_order))
+                    .setView(customView)
+                    .setPositiveButton(android.R.string.ok, { param1, param2 ->
+                        spinnerWaiter.selectedItem.let {
+                            val variable = it
+                            addNewOrder(variable.toString())
+                        }
+                    })
+                    .show()
+        } else {
+
         }
-        val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
-        spinnerWaiter.adapter = adapter
 
-        AlertDialog.Builder(this)
-                .setTitle(getString(R.string.new_order))
-                .setView(customView)
-                .setPositiveButton(android.R.string.ok, { param1, param2 ->
-                   spinnerWaiter.selectedItem.let {
-                       val variable = it
-                       addNewOrder(variable.toString())
-                   }
-                })
-                .show()
     }
 
     fun addNewOrder(waiterName: String) {
         val table = Tables[tableIndex!!]
         val tableOrder = TableOrder(table, waiterName, Date().time)
         table.tableOrder = tableOrder
+
         // TODO: Actualizar el fragment PlatesFragment diciendo que ya hay una orden creada.
     }
 
