@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import co.com.geo.waiter.R
+import co.com.geo.waiter.adapter.PlatesReciclerViewAdapter
 import co.com.geo.waiter.model.Plate
+import co.com.geo.waiter.model.Plates
 import co.com.geo.waiter.model.Table
 import co.com.geo.waiter.model.Tables
+import kotlinx.android.synthetic.main.fragment_plates.*
 
 
 /**
@@ -65,6 +68,15 @@ class PlatesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //TODO: si hay TableOrder hay que listar los platos de tableOrder, si no entonces se listan todos los platos.
+        var adapter: PlatesReciclerViewAdapter? = null
+        if (table == null) {
+            adapter = PlatesReciclerViewAdapter(Plates.getPlates())
+        } else {
+            if (table!!.tableOrder != null) {
+                adapter = PlatesReciclerViewAdapter(table!!.tableOrder!!.getPlates())
+            }
+        }
+        plates_list.adapter = adapter
     }
 
     override fun onAttach(context: Context) {

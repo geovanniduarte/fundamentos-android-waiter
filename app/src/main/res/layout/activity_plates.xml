@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activity.PlatesActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="co.com.geo.waiter.fragment.PlatesFragment"/>
+
 </android.support.constraint.ConstraintLayout>
