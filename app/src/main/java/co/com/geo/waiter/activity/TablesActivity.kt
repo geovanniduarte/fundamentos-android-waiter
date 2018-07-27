@@ -1,5 +1,6 @@
 package co.com.geo.waiter.activity
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -17,8 +18,14 @@ import co.com.geo.waiter.model.Table
 
 class TablesActivity : AppCompatActivity(), TablesFragment.OnTableSelectedListener,
                                             TableOrderFragment.OnFragmentInteractionListener,
-                                            PlatesFragment.OnFragmentInteractionListener {
+                                            PlatesFragment.OnPlatesFragmentInteractionListener {
 
+    companion object {
+        fun intent(context: Context) : Intent {
+            val intent = Intent(context, TablesActivity::class.java)
+            return intent
+        }
+    }
 
     private var is400Land = false
 

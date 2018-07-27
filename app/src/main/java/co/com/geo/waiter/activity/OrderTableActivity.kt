@@ -18,12 +18,14 @@ import co.com.geo.waiter.model.Tables
 import co.com.geo.waiter.model.waiterName
 import java.util.*
 
-class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentInteractionListener, PlatesFragment.OnFragmentInteractionListener {
+class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentInteractionListener, PlatesFragment.OnPlatesFragmentInteractionListener {
 
     private var tableIndex: Int? = null
 
     companion object {
         private const val ARG_CITY_INDEX = "ARG_CITY_INDEX"
+        private const val PLATES_REQUEST = 1
+
         fun intent(context: Context, cityIndex: Int) : Intent {
             val intent = Intent(context, OrderTableActivity::class.java)
             intent.putExtra(ARG_CITY_INDEX, cityIndex)
@@ -65,7 +67,7 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
                     })
                     .show()
         } else {
-
+            startActivityForResult(PlatesActivity.intent(this), PLATES_REQUEST)
         }
 
     }

@@ -7,6 +7,7 @@
     tools:context=".activity.PlatesActivity">
 
     <fragment
+        android:id="@+id/all_plates_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="co.com.geo.waiter.fragment.PlatesFragment"/>

@@ -3,6 +3,7 @@ package co.com.geo.waiter.adapter
 import android.speech.RecognizerIntent
 import android.support.v7.widget.RecyclerView
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,17 @@ import co.com.geo.waiter.model.Plate
 import co.com.geo.waiter.model.Plates
 import kotlinx.android.synthetic.main.content_plate.*
 
-class PlatesReciclerViewAdapter(val plates: List<Plate>): RecyclerView.Adapter<PlatesReciclerViewAdapter.PlateViewHolder>() {
+class PlatesReciclerViewAdapter(private val plates: List<Plate>): RecyclerView.Adapter<PlatesReciclerViewAdapter.PlateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlateViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.content_plate, parent, false)
+        Log.i("PlatesReciclerV", "creatin view holder")
        return PlateViewHolder(view)
     }
 
-    override fun getItemCount(): Int = plates.size
+    override fun getItemCount(): Int {
+        return plates.size
+    }
 
 
     override fun onBindViewHolder(holder: PlateViewHolder, position: Int) {

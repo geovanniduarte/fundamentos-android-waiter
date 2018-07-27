@@ -3,6 +3,7 @@ package co.com.geo.waiter.fragment
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,7 @@ class PlatesFragment : Fragment() {
 
     private var tableIndex: Int = 0
     private var table: Table? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: OnPlatesFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,18 +71,21 @@ class PlatesFragment : Fragment() {
         //TODO: si hay TableOrder hay que listar los platos de tableOrder, si no entonces se listan todos los platos.
         var adapter: PlatesReciclerViewAdapter? = null
         if (table == null) {
-            adapter = PlatesReciclerViewAdapter(Plates.getPlates())
+            val plates = Plates.getPlates()
+            adapter = PlatesReciclerViewAdapter(plates)
         } else {
             if (table!!.tableOrder != null) {
                 adapter = PlatesReciclerViewAdapter(table!!.tableOrder!!.getPlates())
             }
         }
+        plates_list.layoutManager = LinearLayoutManager(activity!!)
         plates_list.adapter = adapter
+
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnPlatesFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
@@ -104,7 +108,7 @@ class PlatesFragment : Fragment() {
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnFragmentInteractionListener {
+    interface OnPlatesFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onPlateSelected(plate: Plate)
     }
