@@ -45,7 +45,7 @@ class TableOrderFragment : Fragment() {
     var table : Table? = null
     set(value) {
         field = value
-        updateView(value)
+        updateView(value, "")
     }
 
     private var listener: OnFragmentInteractionListener? = null
@@ -66,7 +66,7 @@ class TableOrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         table = Tables[tableIndex!!]
-        updateView(table)
+        updateView(table, "")
         initButtonInteraction()
         if (fragmentManager?.findFragmentById(R.id.order_plates_list_fragment) == null) {
             val platesFragment = PlatesFragment.newInstance(tableIndex!!)
@@ -98,20 +98,22 @@ class TableOrderFragment : Fragment() {
 
     override fun getUserVisibleHint(): Boolean {
         super.getUserVisibleHint()
-        updateView(table)
+        updateView(table, null)
         return true
     }
 
-    fun updateView(table: Table?) {
-        table_number.text = table?.number.toString()
-        table_room.text = table?.roomName
+    fun updateView(table: Table?, waiterName: String?) {
+        if (table != null) {
+            table_number.text = table.number.toString()
+            table_room.text = table.roomName
+        }
+
+        if (waiterName != null) {
+            waiter_name.text = waiterName
+        }
     }
 
     fun moveToTable(tableIndex: Int) {
-
-    }
-
-    fun beginOrdering() {
 
     }
 

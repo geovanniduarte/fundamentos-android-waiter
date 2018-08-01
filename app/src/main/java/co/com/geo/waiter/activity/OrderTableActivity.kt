@@ -74,6 +74,8 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
 
     fun addNewOrder(waiterName: String) {
         val table = Tables[tableIndex!!]
+        val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment)
+
         val tableOrder = TableOrder(table, waiterName, Date().time)
         table.tableOrder = tableOrder
 
