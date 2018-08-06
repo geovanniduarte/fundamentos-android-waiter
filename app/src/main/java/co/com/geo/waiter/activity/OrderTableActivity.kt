@@ -74,12 +74,13 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
 
     fun addNewOrder(waiterName: String) {
         val table = Tables[tableIndex!!]
-        val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment)
+        val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment) as TableOrderFragment
 
         val tableOrder = TableOrder(table, waiterName, Date().time)
         table.tableOrder = tableOrder
 
         // TODO: Actualizar el fragment PlatesFragment diciendo que ya hay una orden creada.
+        fragment.updateView(null, "${resources.getString(R.string.order_waiter_msg)} ${waiterName}")
     }
 
     override fun onPlateSelected(plate: Plate) {

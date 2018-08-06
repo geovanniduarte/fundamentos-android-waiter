@@ -81,7 +81,7 @@ class PlatesFragment : Fragment() {
         }
         if (adapter != null) {
             adapter.onClickListener = View.OnClickListener {
-                Toast.makeText(activity, "pulsado plato", Toast.LENGTH_LONG).show()
+               //Lanzar actividad para detalles del plato seleccionado.
             }
         }
 

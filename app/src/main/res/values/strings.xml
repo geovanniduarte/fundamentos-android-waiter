@@ -6,4 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="waiter_tag_name">Mesero</string>
     <string name="new_order">Nueva orden</string>
+    <string name="empty_string"></string>
+    <string name="order_waiter_msg">Order created by: </string>
+    <string name="add_plate_to_order">Agregar plato</string>
 </resources>
