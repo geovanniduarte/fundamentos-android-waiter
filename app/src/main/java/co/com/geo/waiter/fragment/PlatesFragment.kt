@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import co.com.geo.waiter.R
 import co.com.geo.waiter.adapter.PlatesReciclerViewAdapter
 import co.com.geo.waiter.model.Plate
@@ -78,6 +79,12 @@ class PlatesFragment : Fragment() {
                 adapter = PlatesReciclerViewAdapter(table!!.tableOrder!!.getPlates())
             }
         }
+        if (adapter != null) {
+            adapter.onClickListener = View.OnClickListener {
+               //Lanzar actividad para detalles del plato seleccionado.
+            }
+        }
+
         plates_list.layoutManager = LinearLayoutManager(activity!!)
         plates_list.adapter = adapter
 

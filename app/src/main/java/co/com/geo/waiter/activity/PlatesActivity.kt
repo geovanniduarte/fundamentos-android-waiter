@@ -25,6 +25,6 @@ class PlatesActivity : AppCompatActivity(), PlatesFragment.OnPlatesFragmentInter
     }
 
     override fun onPlateSelected(plate: Plate) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

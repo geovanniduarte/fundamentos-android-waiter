@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.OrderTableActivity" />
-        <activity android:name=".activity.PlatesActivity"></activity>
+        <activity android:name=".activity.PlatesActivity" />
+        <activity android:name=".activity.OrderPlateActivity"></activity>
     </application>
 
 </manifest>

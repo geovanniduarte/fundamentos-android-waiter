@@ -6,4 +6,5 @@
     <dimen name="standard_corner_radius">8dp</dimen>
     <dimen name="standard_card_elevation">8dp</dimen>
     <dimen name="default_padding">16dp</dimen>
+    <dimen name="plate_detail_height">100dp</dimen>
 </resources>
