@@ -14,7 +14,7 @@
     </FrameLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/plate_variation"
         android:layout_width="0dp"
         android:layout_height="@dimen/plate_detail_height"
         android:layout_marginEnd="8dp"

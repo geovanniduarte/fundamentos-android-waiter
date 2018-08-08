@@ -1,5 +1,6 @@
 package co.com.geo.waiter.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -25,6 +26,28 @@ class PlatesActivity : AppCompatActivity(), PlatesFragment.OnPlatesFragmentInter
     }
 
     override fun onPlateSelected(plate: Plate) {
+        val intent = OrderPlateActivity.intent(this, plate)
+        startActivityForResult(intent, PLATES_REQUEST)
+        makeLongToast(this, "Plato seleccionado")
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode) {
+            PLATES_REQUEST -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    if (data != null) {
+                        val plate = data.getSerializableExtra(OrderPlateActivity.EXTRA_PLATE)
+                        val variation = data.getStringExtra(OrderPlateActivity.EXTRA_VARIATION)
+                        val intent = Intent()
+                        intent.putExtra(OrderPlateActivity.EXTRA_PLATE, plate)
+                        intent.putExtra(OrderPlateActivity.EXTRA_VARIATION, variation)
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()
+                    }
+                } else {
+                    makeLongToast(this, getString(R.string.error_add_plate_toast_msg))
+                }
+            }
+        }
     }
 }

@@ -82,6 +82,7 @@ class PlatesFragment : Fragment() {
         if (adapter != null) {
             adapter.onClickListener = View.OnClickListener {
                //Lanzar actividad para detalles del plato seleccionado.
+                listener.onPlateSelected()
             }
         }
 

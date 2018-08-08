@@ -1,5 +1,6 @@
 package co.com.geo.waiter.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -18,13 +19,14 @@ import co.com.geo.waiter.model.Tables
 import co.com.geo.waiter.model.waiterName
 import java.util.*
 
+const val PLATES_REQUEST = 1
 class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentInteractionListener, PlatesFragment.OnPlatesFragmentInteractionListener {
 
     private var tableIndex: Int? = null
 
     companion object {
         private const val ARG_CITY_INDEX = "ARG_CITY_INDEX"
-        private const val PLATES_REQUEST = 1
+
 
         fun intent(context: Context, cityIndex: Int) : Intent {
             val intent = Intent(context, OrderTableActivity::class.java)
@@ -72,14 +74,25 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode) {
+            PLATES_REQUEST -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    makeLongToast(this, getString(R.string.plate_added_toast_msg))
+                }
+            }
+        }
+    }
+
     fun addNewOrder(waiterName: String) {
         val table = Tables[tableIndex!!]
-        val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment)
+        val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment) as TableOrderFragment
 
         val tableOrder = TableOrder(table, waiterName, Date().time)
         table.tableOrder = tableOrder
 
         // TODO: Actualizar el fragment PlatesFragment diciendo que ya hay una orden creada.
+        fragment.updateView(null, waiterName)
     }
 
     override fun onPlateSelected(plate: Plate) {

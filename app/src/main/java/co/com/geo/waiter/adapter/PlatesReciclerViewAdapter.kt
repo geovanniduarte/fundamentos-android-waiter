@@ -21,14 +21,13 @@ class PlatesReciclerViewAdapter(private val plates: List<Plate>): RecyclerView.A
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlateViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.content_plate, parent, false)
         view.setOnClickListener(onClickListener)
-        Log.i("PlatesReciclerV", "creatin view holder")
+
         return PlateViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return plates.size
     }
-
 
     override fun onBindViewHolder(holder: PlateViewHolder, position: Int) {
         val plate = Plates[position]
