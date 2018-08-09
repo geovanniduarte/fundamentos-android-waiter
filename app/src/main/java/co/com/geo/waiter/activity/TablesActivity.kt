@@ -5,9 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import co.com.geo.waiter.R
 import co.com.geo.waiter.fragment.PlatesFragment
 import co.com.geo.waiter.fragment.TableOrderFragment
@@ -15,9 +18,11 @@ import co.com.geo.waiter.fragment.TableOrderPagerFragment
 import co.com.geo.waiter.fragment.TablesFragment
 import co.com.geo.waiter.model.Plate
 import co.com.geo.waiter.model.Table
+import co.com.geo.waiter.model.Tables
+import co.com.geo.waiter.model.waiterName
 
 class TablesActivity : AppCompatActivity(), TablesFragment.OnTableSelectedListener,
-                                            TableOrderFragment.OnFragmentInteractionListener,
+                                            TableOrderFragment.OnTableOrderFragmentInteractionListener,
                                             PlatesFragment.OnPlatesFragmentInteractionListener {
 
     companion object {
@@ -67,7 +72,33 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnTableSelectedListen
     }
 
     override fun onButtonAddPlatePressed(tableIndex: Int) {
-        //TODO: Acá se le informa al fragment con los platos pedidos que debe agregar un nuevo plato
+        //TODO: Acá se le informa a la activity que un fragment de los de la derecha pulsó el botón
+        /**
+        val tableOrder = Tables[tableIndex].tableOrder
+        if (tableOrder == null) {
+        val customView = layoutInflater.inflate(R.layout.view_neworder, null)
+        val spinnerWaiter = customView.findViewById<Spinner>(R.id.waiter_spinner)
+        val values = waiterName.values().map { waiterName ->
+        waiterName.name
+        }
+        val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
+        spinnerWaiter.adapter = adapter
+
+        AlertDialog.Builder(this)
+        .setTitle(getString(R.string.new_order))
+        .setView(customView)
+        .setPositiveButton(android.R.string.ok, { param1, param2 ->
+        spinnerWaiter.selectedItem.let {
+        val variable = it
+        addNewOrder(variable.toString())
+        }
+        })
+        .show()
+        } else {
+        startActivityForResult(PlatesActivity.intent(this), PLATES_REQUEST)
+        }
+         */
+
     }
 
     override fun onPlateSelected(plate: Plate) {

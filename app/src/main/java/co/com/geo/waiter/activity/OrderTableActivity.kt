@@ -11,16 +11,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import co.com.geo.waiter.R
+import co.com.geo.waiter.adapter.PlatesReciclerViewAdapter
 import co.com.geo.waiter.fragment.PlatesFragment
 import co.com.geo.waiter.fragment.TableOrderFragment
-import co.com.geo.waiter.model.Plate
-import co.com.geo.waiter.model.TableOrder
-import co.com.geo.waiter.model.Tables
-import co.com.geo.waiter.model.waiterName
+import co.com.geo.waiter.model.*
 import java.util.*
 
 const val PLATES_REQUEST = 1
-class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentInteractionListener, PlatesFragment.OnPlatesFragmentInteractionListener {
+class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnTableOrderFragmentInteractionListener, PlatesFragment.OnPlatesFragmentInteractionListener {
 
     private var tableIndex: Int? = null
 
@@ -71,14 +69,18 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
         } else {
             startActivityForResult(PlatesActivity.intent(this), PLATES_REQUEST)
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode) {
             PLATES_REQUEST -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    makeLongToast(this, getString(R.string.plate_added_toast_msg))
+                    val variation = data!!.getStringExtra(OrderPlateActivity.EXTRA_VARIATION)
+                    val plate = data!!.getSerializableExtra(OrderPlateActivity.EXTRA_PLATE) as Plate
+                    val table = Tables[tableIndex!!]
+                    table.tableOrder!!.addOrder(Order(plate, variation))
+                    val fragment = supportFragmentManager.findFragmentById(R.id.table_order_fragment) as TableOrderFragment
+                    fragment.updateView(table, null)
                 }
             }
         }
@@ -96,7 +98,7 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnFragmentIn
     }
 
     override fun onPlateSelected(plate: Plate) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //para cuando se seleccione un plato pero del fragment con platos de la orden
     }
 
 }

@@ -48,7 +48,7 @@ class TableOrderFragment : Fragment() {
         updateView(value, "")
     }
 
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: OnTableOrderFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +84,7 @@ class TableOrderFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnTableOrderFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
@@ -111,6 +111,15 @@ class TableOrderFragment : Fragment() {
         if (waiterName != null) {
             waiter_name.text = waiterName
         }
+
+        //actualice la vista de mi fragment de platos elegidos.
+        val fragment = fragmentManager!!.findFragmentById(R.id.order_plates_list_fragment)
+
+        if (fragment != null) {
+           val platesFragment = fragment as PlatesFragment
+           platesFragment.updateView()
+        }
+
     }
 
     fun moveToTable(tableIndex: Int) {
@@ -129,7 +138,7 @@ class TableOrderFragment : Fragment() {
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnFragmentInteractionListener {
+    interface OnTableOrderFragmentInteractionListener {
         fun onButtonAddPlatePressed(tableIndex: Int)
 
     }

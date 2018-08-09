@@ -32,9 +32,11 @@ class PlatesReciclerViewAdapter(private val plates: List<Plate>): RecyclerView.A
     override fun onBindViewHolder(holder: PlateViewHolder, position: Int) {
         val plate = Plates[position]
         holder.bindPlate(plate)
+        holder.itemView.tag = plate
     }
 
     inner class PlateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
         val imageView = itemView.findViewById<ImageView>(R.id.plate_image)
         val textPlateName = itemView.findViewById<TextView>(R.id.plate_name)
         val textPlatePrice = itemView.findViewById<TextView>(R.id.plate_price)

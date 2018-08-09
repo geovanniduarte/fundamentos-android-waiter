@@ -9,7 +9,6 @@ import android.widget.Toast
 import co.com.geo.waiter.R
 import co.com.geo.waiter.model.Plate
 import kotlinx.android.synthetic.main.activity_order_plate.*
-import kotlinx.android.synthetic.main.fragment_table_order.*
 
 fun makeLongToast(context: Context, text: String) {
     Toast.makeText(context, text, Toast.LENGTH_LONG).show()
@@ -23,7 +22,7 @@ class OrderPlateActivity : AppCompatActivity() {
         public const val EXTRA_VARIATION = "extra_variation"
 
         fun intent(context: Context, plate: Plate) : Intent {
-            val intent = Intent(context, OrderTableActivity::class.java)
+            val intent = Intent(context, OrderPlateActivity::class.java)
             intent.putExtra(EXTRA_PLATE, plate)
             return intent
         }
@@ -34,7 +33,8 @@ class OrderPlateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_plate)
         add_button.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(EXTRA_PLATE, intent.getSerializableExtra(EXTRA_PLATE))
+            val plate  = this.intent.getSerializableExtra(EXTRA_PLATE)
+            intent.putExtra(EXTRA_PLATE, plate)
             intent.putExtra(EXTRA_VARIATION, plate_variation.text.toString())
             setResult(Activity.RESULT_OK, intent)
             finish()

@@ -70,6 +70,10 @@ class PlatesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //TODO: si hay TableOrder hay que listar los platos de tableOrder, si no entonces se listan todos los platos.
+        updateView()
+    }
+
+    fun updateView() {
         var adapter: PlatesReciclerViewAdapter? = null
         if (table == null) {
             val plates = Plates.getPlates()
@@ -81,14 +85,14 @@ class PlatesFragment : Fragment() {
         }
         if (adapter != null) {
             adapter.onClickListener = View.OnClickListener {
-               //Lanzar actividad para detalles del plato seleccionado.
-                listener.onPlateSelected()
+                //Lanzar actividad para detalles del plato seleccionado.
+                val plate = it.tag as Plate
+                listener!!.onPlateSelected(plate)
             }
         }
 
         plates_list.layoutManager = LinearLayoutManager(activity!!)
         plates_list.adapter = adapter
-
     }
 
     override fun onAttach(context: Context) {
