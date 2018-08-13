@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Toast
 import co.com.geo.waiter.R
 import co.com.geo.waiter.model.Plate
@@ -31,6 +32,10 @@ class OrderPlateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_plate)
+        myInit()
+    }
+
+    fun myInit() {
         add_button.setOnClickListener {
             val intent = Intent()
             val plate  = this.intent.getSerializableExtra(EXTRA_PLATE)
@@ -39,5 +44,6 @@ class OrderPlateActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+        val view = LayoutInflater.from(this).inflate(R.layout.content_plate, plate_view , true)
     }
 }

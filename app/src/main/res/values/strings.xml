@@ -11,4 +11,5 @@
     <string name="add_plate_to_order">Agregar plato</string>
     <string name="error_add_plate_toast_msg">No se pudo agregar plato</string>
     <string name="plate_added_toast_msg">Plato agregado</string>
+    <string name="button_cancell_msg">Cancelar</string>
 </resources>
