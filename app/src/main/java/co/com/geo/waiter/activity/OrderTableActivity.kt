@@ -59,12 +59,12 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnTableOrder
             AlertDialog.Builder(this)
                     .setTitle(getString(R.string.new_order))
                     .setView(customView)
-                    .setPositiveButton(android.R.string.ok, { param1, param2 ->
+                    .setPositiveButton(android.R.string.ok) { param1, param2 ->
                         spinnerWaiter.selectedItem.let {
                             val variable = it
                             addNewOrder(variable.toString())
                         }
-                    })
+                    }
                     .show()
         } else {
             startActivityForResult(PlatesActivity.intent(this), PLATES_REQUEST)
@@ -97,8 +97,9 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnTableOrder
         fragment.updateView(null, waiterName)
     }
 
-    override fun onPlateSelected(plate: Plate) {
-        //para cuando se seleccione un plato pero del fragment con platos de la orden
+    override fun onPlateSelected(plate: Plate, variation: String) {
+       val intent = OrderPlateActivity.intent(this, plate)
+       startActivity(intent)
     }
 
 }

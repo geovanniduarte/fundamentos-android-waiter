@@ -4,16 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Toast
 import co.com.geo.waiter.R
+import co.com.geo.waiter.adapter.Listenable
+import co.com.geo.waiter.adapter.OrderReciclerViewAdapter
 import co.com.geo.waiter.adapter.PlatesReciclerViewAdapter
-import co.com.geo.waiter.model.Plate
-import co.com.geo.waiter.model.Plates
-import co.com.geo.waiter.model.Table
-import co.com.geo.waiter.model.Tables
+import co.com.geo.waiter.model.*
 import kotlinx.android.synthetic.main.fragment_plates.*
 
 
@@ -74,25 +75,34 @@ class PlatesFragment : Fragment() {
     }
 
     fun updateView() {
-        var adapter: PlatesReciclerViewAdapter? = null
+        var adapter : Listenable? = null
         if (table == null) {
             val plates = Plates.getPlates()
             adapter = PlatesReciclerViewAdapter(plates)
         } else {
             if (table!!.tableOrder != null) {
-                adapter = PlatesReciclerViewAdapter(table!!.tableOrder!!.getPlates())
+                adapter = OrderReciclerViewAdapter(table!!.tableOrder!!.orders)
             }
         }
+
         if (adapter != null) {
             adapter.onClickListener = View.OnClickListener {
                 //Lanzar actividad para detalles del plato seleccionado.
-                val plate = it.tag as Plate
-                listener!!.onPlateSelected(plate)
+                if (adapter is PlatesReciclerViewAdapter) {
+                    val plate = it.tag as Plate
+                    listener?.onPlateSelected(plate, "")
+                } else {
+                    val order = it.tag as Order
+                    val plate = order.plate
+                    val variation = order.variation
+                    listener?.onPlateSelected(plate, variation)
+                }
+
             }
         }
 
         plates_list.layoutManager = LinearLayoutManager(activity!!)
-        plates_list.adapter = adapter
+        plates_list.adapter = adapter as RecyclerView.Adapter<*>
     }
 
     override fun onAttach(context: Context) {
@@ -122,6 +132,6 @@ class PlatesFragment : Fragment() {
      */
     interface OnPlatesFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onPlateSelected(plate: Plate)
+        fun onPlateSelected(plate: Plate, variation: String)
     }
 }

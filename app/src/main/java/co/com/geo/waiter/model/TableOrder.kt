@@ -3,8 +3,7 @@ package co.com.geo.waiter.model
 import java.io.Serializable
 
 class TableOrder(var table: Table, var waiterName: String, var date: Long): Serializable {
-    private val orders : ArrayList<Order> = ArrayList()
-
+    val orders : ArrayList<Order> = ArrayList()
 
     fun getPlates() : List<Plate> {
         val plates = ArrayList<Plate>()
@@ -17,4 +16,5 @@ class TableOrder(var table: Table, var waiterName: String, var date: Long): Seri
     fun addOrder(order: Order) {
         orders.add(order)
     }
+
 }
