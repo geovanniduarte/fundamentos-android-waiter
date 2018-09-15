@@ -99,10 +99,11 @@ class PlatesFragment : Fragment() {
                 }
 
             }
+
+            plates_list.layoutManager = LinearLayoutManager(activity!!)
+            plates_list.adapter = adapter as RecyclerView.Adapter<*>
         }
 
-        plates_list.layoutManager = LinearLayoutManager(activity!!)
-        plates_list.adapter = adapter as RecyclerView.Adapter<*>
     }
 
     override fun onAttach(context: Context) {

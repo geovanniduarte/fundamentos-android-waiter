@@ -102,7 +102,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnTableSelectedListen
 
     }
 
-    override fun onPlateSelected(plate: Plate) {
+    override fun onPlateSelected(plate: Plate, variation: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

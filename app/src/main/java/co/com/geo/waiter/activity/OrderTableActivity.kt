@@ -98,7 +98,8 @@ class OrderTableActivity : AppCompatActivity() , TableOrderFragment.OnTableOrder
     }
 
     override fun onPlateSelected(plate: Plate, variation: String) {
-       val intent = OrderPlateActivity.intent(this, plate)
+       //solo consulta el plato.
+       val intent = OrderPlateActivity.intent(this, plate, variation)
        startActivity(intent)
     }
 

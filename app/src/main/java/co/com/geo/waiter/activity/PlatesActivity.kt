@@ -26,7 +26,7 @@ class PlatesActivity : AppCompatActivity(), PlatesFragment.OnPlatesFragmentInter
     }
 
     override fun onPlateSelected(plate: Plate, variation: String) {
-        val intent = OrderPlateActivity.intent(this, plate)
+        val intent = OrderPlateActivity.intent(this, plate, variation)
         startActivityForResult(intent, PLATES_REQUEST)
         makeLongToast(this, "Plato seleccionado")
     }

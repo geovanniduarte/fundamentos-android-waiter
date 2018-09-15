@@ -24,9 +24,10 @@ class OrderPlateActivity : AppCompatActivity() {
         public const val EXTRA_PLATE = "extra_plate"
         public const val EXTRA_VARIATION = "extra_variation"
 
-        fun intent(context: Context, plate: Plate) : Intent {
+        fun intent(context: Context, plate: Plate, variation: String) : Intent {
             val intent = Intent(context, OrderPlateActivity::class.java)
             intent.putExtra(EXTRA_PLATE, plate)
+            intent.putExtra(EXTRA_VARIATION, variation)
             return intent
         }
     }
@@ -39,6 +40,14 @@ class OrderPlateActivity : AppCompatActivity() {
 
     private fun myInit() {
         val plate  = intent.getSerializableExtra(EXTRA_PLATE) as Plate
+        val variation = intent.getStringExtra(EXTRA_VARIATION)
+        //visualiza el plato
+        val view = LayoutInflater.from(this).inflate(R.layout.content_plate, plate_view , true)
+        plate_image.setImageResource(plate.image)
+        plate_name.text = plate.name
+        plate_price.text = "${plate.price}"
+        plate_description.text = plate.description
+        //boton de agregar plato
         add_button.setOnClickListener {
             val intent = Intent()
             intent.putExtra(EXTRA_PLATE, plate)
@@ -46,11 +55,11 @@ class OrderPlateActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
-        val view = LayoutInflater.from(this).inflate(R.layout.content_plate, plate_view , true)
-        plate_image.setImageResource(plate.image)
-        plate_name.text = plate.name
-        plate_price.text = "${plate.price}"
-        plate_description.text = plate.description
+        //boton de cancelar
+        cancell_button.setOnClickListener {
+            finish()
+        }
+        plate_variation.setText(variation)
         Log.i("PLATE", plate.name)
     }
 }

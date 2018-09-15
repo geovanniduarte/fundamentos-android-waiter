@@ -66,7 +66,9 @@ class TableOrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         table = Tables[tableIndex!!]
-        updateView(table, "")
+        val waiterName = table?.tableOrder?.waiterName
+
+        updateView(table, waiterName)
         initButtonInteraction()
         if (fragmentManager?.findFragmentById(R.id.order_plates_list_fragment) == null) {
             val platesFragment = PlatesFragment.newInstance(tableIndex!!)
